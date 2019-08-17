@@ -7,27 +7,23 @@ exports.handler = async (event, context) => {
   const base = await Airtable.base(process.env.BASE_ID)
   const table = await base('test-table')
 
-  const response = await table.create(
+  const [error, record] = await table.create(
     JSON.parse(event.body),
-    (error, record) => {
-      if (error) {
-        console.error(err)
-        return {
-          statusCode: 500,
-          body: JSON.stringify(err),
-        }
-      }
-      console.log(record.getId())
-      return {
-        statusCode: 200,
-        body: JSON.stringify(record),
-      }
-    }
+    (error, record) => [error, record]
   )
 
-  console.log(response)
-
+  if (error) {
+    return {
+      statusCode: error.statusCode || 500,
+      body: String(error),
+    }
+  }
   return {
+    statusCode: 200,
+    body: JSON.stringify(record),
+  }
+
+  /* return {
     statusCode: 200,
     body: JSON.stringify(response),
   }
