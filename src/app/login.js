@@ -1,8 +1,11 @@
 import React from 'react'
 import { navigate } from 'gatsby'
-import { handleLogin, isLoggedIn } from './services/auth'
+import { handleLogin, initAuth } from './services/auth'
 
 class Login extends React.Component {
+  componentDidMount = () => {
+    initAuth()
+  }
   handleSubmit = () => handleLogin(user => navigate(`/app/profile`))
   render() {
     return (
