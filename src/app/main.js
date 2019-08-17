@@ -25,7 +25,7 @@ class Main extends React.Component {
         "Notes": this.state.notes
         }
        }
-      fetch("/.netlify/functions/airtable", {
+      fetch("../../.netlify/functions/airtable", {
       method: "POST",
       body: JSON.stringify(fields)
       })
