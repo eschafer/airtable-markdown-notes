@@ -12,10 +12,16 @@ exports.handler = async (event, context) => {
     (error, record) => {
       if (error) {
         console.error(err)
-        return
+        return {
+          statusCode: 500,
+          body: JSON.stringify(err),
+        }
       }
       console.log(record.getId())
-      return
+      return {
+        statusCode: 200,
+        body: JSON.stringify(record),
+      }
     }
   )
 
