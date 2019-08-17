@@ -9,6 +9,9 @@ exports.handler = async (event, context) => {
 
   const { error, record } = await table.create(JSON.parse(event.body))
 
+  console.log(error);
+  console.log(record);
+
   if (error) {
     return {
       statusCode: error.statusCode || 500,
