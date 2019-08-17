@@ -23,21 +23,21 @@ exports.handler = async (event, context) => {
     body: JSON.stringify(record),
   } */
   
-  const response = await table.create(
+  await table.create(
     JSON.parse(event.body),
     (error, record) => {
-      return { error, record }
+      if (error) {
+        return {
+          statusCode: error.statusCode || 500,
+          body: String(error),
+        }
+      }
+      return {
+        statusCode: 200,
+        body: JSON.stringify(record),
+      }
     }
   )
 
-  if (response.error) {
-    return {
-      statusCode: response.error.statusCode || 500,
-      body: String(response.error),
-    }
-  }
-  return {
-    statusCode: 200,
-    body: JSON.stringify(response.record),
-  }
+  
 }
