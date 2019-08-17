@@ -9,7 +9,7 @@ export const isBrowser = () => typeof window !== 'undefined'
 export const initAuth = (callback) => {
   netlifyIdentity.on('init', (user) => {
     setUser(user);
-    callback(user);
+    if (callback) callback(user);
   });
 
   if (isBrowser()) {

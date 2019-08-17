@@ -2,7 +2,7 @@ import React from 'react'
 import { getUser } from './services/auth'
 
 class Main extends React.Component {
-  state = { loading: false, json: null }
+  state = { loading: false, json: null, name: '', notes: '' }
   handleClick = e => {
     e.preventDefault()
     const user = getUser()
@@ -17,6 +17,23 @@ class Main extends React.Component {
       .then(response => response.json())
       .then(json => this.setState({ loading: false, json }))
   }
+
+  handleSubmit = e => {
+    const fields = {
+      "fields": {
+        "Name": this.state.name, 
+        "Notes": this.state.notes
+        }
+       }
+      fetch("/.netlify/functions/airtable", {
+      method: "POST",
+      body: JSON.stringify(fields)
+      })
+      .then(() => alert("Form Sent!"))
+      .catch(error => alert(error))
+  
+      e.preventDefault();
+   }
 
   render() {
     const { loading, json } = this.state
@@ -34,6 +51,13 @@ class Main extends React.Component {
           {loading ? 'Loading...' : 'Call Lambda Function'}
         </button>
         <pre>{JSON.stringify(json, null, 2)}</pre>
+
+        <form onSubmit={this.handleSubmit}>
+          <label for="name">Name</label>
+          <input id="name" />
+          <label for="notes">Notes</label>
+          <textarea id="notes" />
+        </form>
       </>
     )
   }
