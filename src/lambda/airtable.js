@@ -12,7 +12,7 @@ exports.handler = async (event, context) => {
     (error, record) => [error, record]
   )
 
-  if (response.error) {
+  if (response && response.error) {
     return {
       statusCode: response.error.statusCode || 500,
       body: JSON.stringify(response),
