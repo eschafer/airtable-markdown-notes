@@ -1,8 +1,8 @@
 const fetch = require('node-fetch')
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context) => {
   const pass = body => {
-    callback(null, { statusCode: 200, body: JSON.stringify(body) })
+    return { statusCode: 200, body: JSON.stringify(body) }
   }
 
   try {
