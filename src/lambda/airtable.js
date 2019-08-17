@@ -7,11 +7,16 @@ exports.handler = async (event, context) => {
   const base = await Airtable.base(process.env.BASE_ID)
   const table = await base('test-table')
 
-  const { error, record } = await table.create(JSON.parse(event.body), (error, record) => 
-    new Promise((resolve, reject) => {
-      resolve({ error, record });
-    })
-  );
+  const { error, record } = await table.create(
+    JSON.parse(event.body),
+    (error, record) => {
+      console.log('error', error)
+      console.log('record', record)
+      return new Promise((resolve, reject) => {
+        resolve({ error, record })
+      })
+    }
+  )
 
   if (error) {
     return {
