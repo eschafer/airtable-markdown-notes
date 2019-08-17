@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
     body: JSON.stringify(record),
   } */
   
-  await table.create(
+  const response = await table.create(
     JSON.parse(event.body),
     (error, record) => {
       if (error) {
@@ -39,5 +39,6 @@ exports.handler = async (event, context) => {
     }
   )
 
-  
+  console.log(response);
+  return response;
 }
