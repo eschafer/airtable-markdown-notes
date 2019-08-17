@@ -54,9 +54,10 @@ class Main extends React.Component {
 
         <form onSubmit={this.handleSubmit}>
           <label for="name">Name</label>
-          <input id="name" />
+          <input id="name" onChange={(e) => this.setState({ name: e.currentTarget.value })} />
           <label for="notes">Notes</label>
-          <textarea id="notes" />
+          <textarea id="notes" onChange={(e) => this.setState({ notes: e.currentTarget.value })}  />
+          <button>Submit</button>
         </form>
       </>
     )
