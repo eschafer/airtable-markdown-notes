@@ -38,23 +38,15 @@ class Main extends React.Component {
     const user = getUser()
     return (
       <>
-        <h1>Your Main App</h1>
-        <ul>
-          <li>API: {user.api && user.api.apiURL}</li>
-          <li>ID: {user.id}</li>
-        </ul>
-        <hr />
-
-        <button onClick={this.handleClick}>
-          {loading ? 'Loading...' : 'Call Lambda Function'}
-        </button>
-        <pre>{JSON.stringify(json, null, 2)}</pre>
-
         <form onSubmit={this.handleSubmit}>
-          <label for="name">Name</label>
-          <input id="name" onChange={(e) => this.setState({ name: e.currentTarget.value })} />
-          <label for="notes">Notes</label>
-          <textarea id="notes" onChange={(e) => this.setState({ notes: e.currentTarget.value })}  />
+          <div>
+            <label for="name">Name</label>
+            <input id="name" onChange={(e) => this.setState({ name: e.currentTarget.value })} />
+          </div>
+          <div>
+            <label for="notes">Notes</label>
+            <textarea id="notes" onChange={(e) => this.setState({ notes: e.currentTarget.value })}  />
+          </div>
           <button>Submit</button>
         </form>
       </>
