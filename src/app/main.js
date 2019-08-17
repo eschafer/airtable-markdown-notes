@@ -19,15 +19,13 @@ class Main extends React.Component {
   }
 
   handleSubmit = e => {
-    const fields = {
-      "fields": {
+    const data = {
         "Name": this.state.name, 
         "Notes": this.state.notes
-        }
-       }
+      }
       fetch("../../.netlify/functions/airtable", {
       method: "POST",
-      body: JSON.stringify(fields)
+      body: JSON.stringify(data)
       })
       .then(() => alert("Form Sent!"))
       .catch(error => alert(error))
