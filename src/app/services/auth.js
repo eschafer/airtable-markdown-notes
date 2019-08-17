@@ -6,7 +6,12 @@ const clog = (...args) => logAuth && console.log(...args)
 // helpful for debugging netlify identity
 
 export const isBrowser = () => typeof window !== 'undefined'
-export const initAuth = () => {
+export const initAuth = (callback) => {
+  netlifyIdentity.on('init', (user) => {
+    setUser(user);
+    callback(user);
+  });
+
   if (isBrowser()) {
     window.netlifyIdentity = netlifyIdentity
     // You must run this once before trying to interact with the widget

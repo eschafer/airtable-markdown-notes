@@ -4,7 +4,11 @@ import { handleLogin, initAuth } from './services/auth'
 
 class Login extends React.Component {
   componentDidMount = () => {
-    initAuth()
+    initAuth((user) => {
+      if (user) {
+        navigate(`/app/`)
+      }
+    })
   }
   handleSubmit = () => handleLogin(user => navigate(`/app/profile`))
   render() {
